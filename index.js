@@ -1,4 +1,3 @@
-// index.js
 import express from "express";
 import dotenv from "dotenv";
 import TelegramBot from "node-telegram-bot-api";
@@ -22,9 +21,7 @@ app.post(`/webhook/${token}`, (req, res) => {
   res.sendStatus(200);
 });
 
-// Устанавливаем webhook (URL будет твоим Vercel проектом)
-bot.setWebHook(`https://YOUR_PROJECT_NAME.vercel.app/webhook/${token}`);
-
+// Список картинок
 const words = [
   { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%202-BCixSLsK.png", chance: 10 },
   { url: "https://photos-steel-omega.vercel.app/assets/image-BK7aG1-y.png", chance: 20 },
