@@ -15,8 +15,8 @@ app.get("/", (req, res) => {
   res.send("Telegram bot is running on Vercel!");
 });
 
-// Webhook endpoint
-app.post(`/webhook/${token}`, (req, res) => {
+// Webhook endpoint (фиксируем путь без токена)
+app.post("/webhook", (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
