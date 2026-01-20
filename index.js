@@ -46,7 +46,7 @@ function getRandomWord() {
 
 
 const cooldowns = {};
-const COOLDOWN_TIME = 3 * 1000; 
+const COOLDOWN_TIME = 1 * 1000; 
 
 bot.setMyCommands([
   { command: "/start", description: "Qayta ishga tushirish 🔄" },
