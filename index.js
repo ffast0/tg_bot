@@ -5,31 +5,34 @@ import TelegramBot from "node-telegram-bot-api";
 dotenv.config();
 
 const token = process.env.TOKEN_API;
-const bot = new TelegramBot(token); // без polling
+const bot = new TelegramBot(token); 
 
 const app = express();
 app.use(express.json());
 
-// Главная страница
 app.get("/", (req, res) => {
   res.send("Telegram bot is running on Vercel!");
 });
 
-// Webhook endpoint (фиксируем путь без токена)
 app.post("/webhook", (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
 
-// Список картинок
 const words = [
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%202-BCixSLsK.png", chance: 10 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image-BK7aG1-y.png", chance: 20 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%204-CV5Vs6_u.png", chance: 90 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%203-CTfVQxNu.png", chance: 15 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%205-DYMQ4HZm.png", chance: 20 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%206-BHxFkIpn.png", chance: 30 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%207-x69Y6r_W.png", chance: 1 },
+    { url: "http://localhost:5173/public/image%20copy%2013.png", chance: 99 },
+    { url: "http://localhost:5173/public/image%20copy%2013.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%204-CV5Vs6_u.png", chance: 90 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%202-BCixSLsK.png", chance: 50 },
+    { url: "http://localhost:5173/public/image%20copy%2011.png", chance: 40 },
+    { url: "http://localhost:5173/public/image%20copy%2010.png", chance: 20 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%205-DYMQ4HZm.png", chance: 20 },
+    { url: "http://localhost:5173/public/image%20copy%2015.png", chance: 14 },
+    { url: "http://localhost:5173/public/image%20copy%2014.png", chance: 13 },
+    { url: "http://localhost:5173/public/image%20copy%2016.png", chance: 10 },
+    { url: "http://localhost:5173/public/image%20copy%2012.png", chance: 5 },
+    { url: "http://localhost:5173/public/image%20copy%209.png", chance: 1 },
+    { url: "http://localhost:5173/public/image%20copy%208.png", chance: 0.1 },
 ];
 
 function getRandomWord() {
@@ -41,6 +44,10 @@ function getRandomWord() {
   }
 }
 
+
+const cooldowns = {};
+const COOLDOWN_TIME = 3 * 1000; 
+
 bot.setMyCommands([
   { command: "/start", description: "Qayta ishga tushirish 🔄" },
   { command: "/img", description: "Rasimlar" },
@@ -49,14 +56,25 @@ bot.setMyCommands([
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
-    "Salom! /img deb yozing omadingizni sinash uchun. Agar 1% rasm chiqsa, screenshot qilib bot egasiga yuboring."
+    "Salom! /img deb yozing omadingizni sinash uchun. Agar 0.1% rasm chiqsa, screenshot qilib bot egasiga yuboring."
   );
 });
 
 bot.onText(/\/img/, (msg) => {
+  const chatId = msg.chat.id;
+  const now = Date.now();
+
+  if (cooldowns[chatId] && now - cooldowns[chatId] < COOLDOWN_TIME) {
+    const remaining = Math.ceil((COOLDOWN_TIME - (now - cooldowns[chatId])) / 1000);
+    bot.sendMessage(chatId, `⏳ kutib turing ${remaining} sekund, keyingi xabar jonatishdan oldin`);
+    return;
+  }
+
+  cooldowns[chatId] = now;
+
   const word = getRandomWord();
-  bot.sendPhoto(msg.chat.id, word.url, {
-    caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
+  bot.sendPhoto(chatId, word.url, {
+    caption: `||Bu rasmning chiqish shansi: ${word.chance}% 🎇||`,
   });
 });
 
