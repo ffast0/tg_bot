@@ -22,6 +22,8 @@ app.post("/webhook", (req, res) => {
 const words = [
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%204-CV5Vs6_u.png", chance: 90 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%202-BCixSLsK.png", chance: 50 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2011-CiIeG8JM.png", chance: 40 },
