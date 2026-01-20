@@ -20,19 +20,19 @@ app.post("/webhook", (req, res) => {
 });
 
 const words = [
-    { url: "http://localhost:5173/public/image%20copy%2013.png", chance: 99 },
-    { url: "http://localhost:5173/public/image%20copy%2013.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%204-CV5Vs6_u.png", chance: 90 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%202-BCixSLsK.png", chance: 50 },
-    { url: "http://localhost:5173/public/image%20copy%2011.png", chance: 40 },
-    { url: "http://localhost:5173/public/image%20copy%2010.png", chance: 20 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2011-CiIeG8JM.png", chance: 40 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2010-Datq5xB_.png", chance: 20 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%205-DYMQ4HZm.png", chance: 20 },
-    { url: "http://localhost:5173/public/image%20copy%2015.png", chance: 14 },
-    { url: "http://localhost:5173/public/image%20copy%2014.png", chance: 13 },
-    { url: "http://localhost:5173/public/image%20copy%2016.png", chance: 10 },
-    { url: "http://localhost:5173/public/image%20copy%2012.png", chance: 5 },
-    { url: "http://localhost:5173/public/image%20copy%209.png", chance: 1 },
-    { url: "http://localhost:5173/public/image%20copy%208.png", chance: 0.1 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2015-B2Q0LfCJ.png", chance: 14 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2014-BY3npXfZ.png", chance: 13 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2016-DO5A4Ysf.png", chance: 10 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2012-Dcig0oQN.png", chance: 5 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%208-kXq7AYjJ.png", chance: 1 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%209-DgctOdra.png", chance: 0.1 },
 ];
 
 function getRandomWord() {
@@ -74,7 +74,7 @@ bot.onText(/\/img/, (msg) => {
 
   const word = getRandomWord();
   bot.sendPhoto(chatId, word.url, {
-    caption: `||Bu rasmning chiqish shansi: ${word.chance}% 🎇||`,
+    caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
   });
 });
 
