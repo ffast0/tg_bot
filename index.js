@@ -79,30 +79,33 @@ bot.onText(/\/img/, (msg) => {
     caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
   });
 });
-// Секретная команда — не добавляем в setMyCommands
 bot.onText(/\/secret (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
-  const arg = match[1]; // то, что написал пользователь после /secret
-  const chanceValue = parseFloat(arg); // преобразуем в число
+  const arg = match[1];
+  const chanceValue = parseFloat(arg);
 
   const ownerId = 6332173072; // твой Telegram ID
 
   if (chatId !== ownerId) {
-    bot.sendMessage(chatId, "❌ Эта команда недоступна.");
+    bot.sendMessage(chatId, "❌ Bu kodni ishlatishga sizni huquqingiz yoq.");
     return;
   }
 
-  // Найдём все картинки с таким шансом
-  const filtered = words.filter(w => w.chance === chanceValue);
+  // Найдём картинку с ближайшим шансом
+  let closest = words[0];
+  let minDiff = Math.abs(words[0].chance - chanceValue);
 
-  if (filtered.length > 0) {
-    const word = filtered[0]; // берём первую подходящую
-    bot.sendPhoto(chatId, word.url, {
-      caption: `🔒 Секретная картинка (шанс ${word.chance}%)`,
-    });
-  } else {
-    bot.sendMessage(chatId, "❌ Картинка с таким шансом не найдена.");
+  for (let w of words) {
+    const diff = Math.abs(w.chance - chanceValue);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = w;
+    }
   }
+
+  bot.sendPhoto(chatId, closest.url, {
+    caption: `🔒 maxfiy rasim - eng yaqing foizli: ${closest.chance}%`,
+  });
 });
 
 export default app;
