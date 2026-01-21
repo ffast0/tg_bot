@@ -79,5 +79,20 @@ bot.onText(/\/img/, (msg) => {
     caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
   });
 });
+// Секретная команда — не добавляем в setMyCommands
+bot.onText(/\/secret/, (msg) => {
+  const chatId = msg.chat.id;
+
+  // Проверка: например, только твой ID может использовать
+  const ownerId = 6332173072; // твой Telegram ID
+
+  if (chatId === ownerId) {
+    bot.sendPhoto(chatId, words[13].url, {
+      caption: "🔒 Секретная картинка только для владельца!",
+    });
+  } else {
+    bot.sendMessage(chatId, "❌ Эта команда недоступна.");
+  }
+});
 
 export default app;
