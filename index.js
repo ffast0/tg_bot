@@ -34,7 +34,7 @@ const words = [
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2016-DO5A4Ysf.png", chance: 10 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2012-Dcig0oQN.png", chance: 5 },
     { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%208-kXq7AYjJ.png", chance: 1 },
-    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%209-DgctOdra.png", chance: 0.1 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%209-DgctOdra.png", chance: 0.8 },
 ];
 
 function getRandomWord() {
@@ -58,7 +58,7 @@ bot.setMyCommands([
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
-    "Salom! /img deb yozing omadingizni sinash uchun. Agar 0.1% rasm chiqsa, screenshot qilib bot egasiga yuboring."
+    "Salom! /img deb yozing omadingizni sinash uchun. Agar 0.8% rasm chiqsa, screenshot qilib bot egasiga yuboring."
   );
 });
 
