@@ -80,18 +80,28 @@ bot.onText(/\/img/, (msg) => {
   });
 });
 // Секретная команда — не добавляем в setMyCommands
-bot.onText(/\/secret/, (msg) => {
+bot.onText(/\/secret (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
+  const arg = match[1]; // то, что написал пользователь после /secret
+  const chanceValue = parseFloat(arg); // преобразуем в число
 
-  // Проверка: например, только твой ID может использовать
   const ownerId = 6332173072; // твой Telegram ID
 
-  if (chatId === ownerId) {
-    bot.sendPhoto(chatId, words[13].url, {
-      caption: "🔒 Секретная картинка только для владельца!",
+  if (chatId !== ownerId) {
+    bot.sendMessage(chatId, "❌ Эта команда недоступна.");
+    return;
+  }
+
+  // Найдём все картинки с таким шансом
+  const filtered = words.filter(w => w.chance === chanceValue);
+
+  if (filtered.length > 0) {
+    const word = filtered[0]; // берём первую подходящую
+    bot.sendPhoto(chatId, word.url, {
+      caption: `🔒 Секретная картинка (шанс ${word.chance}%)`,
     });
   } else {
-    bot.sendMessage(chatId, "❌ Эта команда недоступна.");
+    bot.sendMessage(chatId, "❌ Картинка с таким шансом не найдена.");
   }
 });
 
