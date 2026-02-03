@@ -77,7 +77,8 @@ bot.onText(/\/img/, (msg) => {
   const word = getRandomWord();
   bot.sendPhoto(chatId, word.url, {
     caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
-    protect_content: true
+    protect_content: true,
+    has_spoiler: true
   });
 });
 bot.onText(/\/secret (.+)/, (msg, match) => {
@@ -106,7 +107,8 @@ bot.onText(/\/secret (.+)/, (msg, match) => {
 
   bot.sendPhoto(chatId, closest.url, {
     caption: `🔒 maxfiy rasim - eng yaqing foizli: ${closest.chance}%`,
-    protect_content: true
+    protect_content: true,
+    has_spoiler: true
   });
 });
 
