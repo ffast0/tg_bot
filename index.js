@@ -7,7 +7,7 @@ dotenv.config();
 const token = process.env.TOKEN_API;
 const bot = new TelegramBot(token); 
 
-const app = express();
+const app = express();  
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -77,6 +77,7 @@ bot.onText(/\/img/, (msg) => {
   const word = getRandomWord();
   bot.sendPhoto(chatId, word.url, {
     caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
+    protect_content: true
   });
 });
 bot.onText(/\/secret (.+)/, (msg, match) => {
@@ -105,6 +106,7 @@ bot.onText(/\/secret (.+)/, (msg, match) => {
 
   bot.sendPhoto(chatId, closest.url, {
     caption: `🔒 maxfiy rasim - eng yaqing foizli: ${closest.chance}%`,
+    protect_content: true
   });
 });
 
