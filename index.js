@@ -58,7 +58,7 @@ bot.setMyCommands([
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
-    "Salom! /img deb yozing omadingizni sinash uchun. Agar 0.8% rasm chiqsa, screenshot qilib bot egasiga yuboring."
+    "Salom! /img deb yozing omadingizni sinash uchun. Agar 0.8% rasm chiqsa siz judaham omadli insonsiz. Rasimlarni qanchalik foizi kam bolsa shunchalik yaxshi rasim chiqadi!"
   );
 });
 
