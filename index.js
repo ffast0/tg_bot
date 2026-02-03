@@ -1,14 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import TelegramBot from "node-telegram-bot-api";
-import { createCanvas, loadImage } from "canvas";
 
 dotenv.config();
 
 const token = process.env.TOKEN_API;
-const bot = new TelegramBot(token);
+const bot = new TelegramBot(token); 
 
-const app = express();
+const app = express();  
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -20,71 +19,22 @@ app.post("/webhook", (req, res) => {
   res.sendStatus(200);
 });
 
-
-// ================== RASM HIMOYA FUNKSIYASI ==================
-async function generateProtectedImage(imageUrl, userId) {
-  const img = await loadImage(imageUrl);
-
-  const canvas = createCanvas(img.width, img.height);
-  const ctx = canvas.getContext("2d");
-
-  // Original rasm
-  ctx.drawImage(img, 0, 0);
-
-  // ===== RANDOM NOISE =====
-  for (let i = 0; i < 10000; i++) {
-    const x = Math.random() * img.width;
-    const y = Math.random() * img.height;
-    ctx.fillStyle = "rgba(255,255,255,0.8)";
-    ctx.fillRect(x, y, 2, 2);
-  }
-
-  // ===== MARKAZIY OQ GRADIENT =====
-  const gradient = ctx.createLinearGradient(
-    0,
-    img.height / 3,
-    0,
-    (img.height / 3) * 2
-  );
-
-  gradient.addColorStop(0, "rgba(255,255,255,0)");
-  gradient.addColorStop(0.5, "rgba(255,255,255,0.35)");
-  gradient.addColorStop(1, "rgba(255,255,255,0)");
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, img.width, img.height);
-
-  // ===== WATERMARK =====
-  ctx.font = "28px Arial";
-  ctx.fillStyle = "rgba(255,0,0,0.6)";
-  ctx.rotate(-0.15);
-  ctx.fillText(
-    `ID:${userId} | ${new Date().toLocaleString()}`,
-    40,
-    img.height - 40
-  );
-
-  return canvas.toBuffer("image/png");
-}
-// ============================================================
-
-
 const words = [
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%204-CV5Vs6_u.png", chance: 90 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%202-BCixSLsK.png", chance: 50 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2011-CiIeG8JM.png", chance: 40 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2010-Datq5xB_.png", chance: 20 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%205-DYMQ4HZm.png", chance: 20 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2015-B2Q0LfCJ.png", chance: 14 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2014-BY3npXfZ.png", chance: 13 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2016-DO5A4Ysf.png", chance: 10 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2012-Dcig0oQN.png", chance: 5 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%208-kXq7AYjJ.png", chance: 1 },
-  { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%209-DgctOdra.png", chance: 0.8 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2013-BbRLilJx.png", chance: 99 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%204-CV5Vs6_u.png", chance: 90 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%202-BCixSLsK.png", chance: 50 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2011-CiIeG8JM.png", chance: 40 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2010-Datq5xB_.png", chance: 20 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%205-DYMQ4HZm.png", chance: 20 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2015-B2Q0LfCJ.png", chance: 14 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2014-BY3npXfZ.png", chance: 13 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2016-DO5A4Ysf.png", chance: 10 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%2012-Dcig0oQN.png", chance: 5 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%208-kXq7AYjJ.png", chance: 1 },
+    { url: "https://photos-steel-omega.vercel.app/assets/image%20copy%209-DgctOdra.png", chance: 0.8 },
 ];
 
 function getRandomWord() {
@@ -96,8 +46,9 @@ function getRandomWord() {
   }
 }
 
+
 const cooldowns = {};
-const COOLDOWN_TIME = 1 * 1000;
+const COOLDOWN_TIME = 1 * 1000; 
 
 bot.setMyCommands([
   { command: "/start", description: "Qayta ishga tushirish 🔄" },
@@ -107,52 +58,41 @@ bot.setMyCommands([
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(
     msg.chat.id,
-    "Salom! /img deb yozing omadingizni sinash uchun."
+    "Salom! /img deb yozing omadingizni sinash uchun. Agar 0.8% rasm chiqsa siz judaham omadli insonsiz. Rasimlarni qanchalik foizi kam bolsa shunchalik yaxshi rasim chiqadi!"
   );
 });
 
-
-// ================== IMG ==================
-bot.onText(/\/img/, async (msg) => {
+bot.onText(/\/img/, (msg) => {
   const chatId = msg.chat.id;
   const now = Date.now();
 
   if (cooldowns[chatId] && now - cooldowns[chatId] < COOLDOWN_TIME) {
     const remaining = Math.ceil((COOLDOWN_TIME - (now - cooldowns[chatId])) / 1000);
-    bot.sendMessage(chatId, `⏳ kutib turing ${remaining} sekund`);
+    bot.sendMessage(chatId, `⏳ kutib turing ${remaining} sekund, keyingi xabar jonatishdan oldin`);
     return;
   }
 
   cooldowns[chatId] = now;
 
   const word = getRandomWord();
-
-  try {
-    const protectedImage = await generateProtectedImage(word.url, chatId);
-
-    await bot.sendPhoto(chatId, protectedImage, {
-      caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
-      protect_content: true
-    });
-  } catch (err) {
-    console.log(err);
-    bot.sendMessage(chatId, "❌ Rasm yuklashda xatolik");
-  }
+  bot.sendPhoto(chatId, word.url, {
+    caption: `Bu rasmning chiqish shansi: ${word.chance}% 🎇`,
+    protect_content: true
+  });
 });
-// ==========================================
-
-
-bot.onText(/\/secret (.+)/, async (msg, match) => {
+bot.onText(/\/secret (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const arg = match[1];
   const chanceValue = parseFloat(arg);
-  const ownerId = 6332173072;
+
+  const ownerId = 6332173072; // твой Telegram ID
 
   if (chatId !== ownerId) {
     bot.sendMessage(chatId, "❌ Bu kodni ishlatishga sizni huquqingiz yoq.");
     return;
   }
 
+  // Найдём картинку с ближайшим шансом
   let closest = words[0];
   let minDiff = Math.abs(words[0].chance - chanceValue);
 
@@ -164,10 +104,8 @@ bot.onText(/\/secret (.+)/, async (msg, match) => {
     }
   }
 
-  const protectedImage = await generateProtectedImage(closest.url, chatId);
-
-  bot.sendPhoto(chatId, protectedImage, {
-    caption: `🔒 maxfiy rasim - ${closest.chance}%`,
+  bot.sendPhoto(chatId, closest.url, {
+    caption: `🔒 maxfiy rasim - eng yaqing foizli: ${closest.chance}%`,
     protect_content: true
   });
 });
