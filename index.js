@@ -105,6 +105,7 @@ bot.onText(/\/secret (.+)/, (msg, match) => {
       closest = w;
     }
   }
+  
 
   bot.sendPhoto(chatId, closest.url, {
     caption: `🔒 maxfiy rasim - eng yaqing foizli: ${closest.chance}%`,
